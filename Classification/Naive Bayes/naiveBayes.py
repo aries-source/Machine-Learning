@@ -5,13 +5,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Importing the dataset
-dataset = pd.read_csv('breast_cancer.csv')
-ind = dataset.iloc[:,1:-1].values
+dataset = pd.read_csv('Social_Network_Ads.csv')
+ind = dataset.iloc[:,:-1].values
 dep = dataset.iloc[:,-1].values
 
 # Splitting Test and Train sets
 from sklearn.model_selection import train_test_split
-indTrain,indTest,depTrain,depTest = train_test_split(ind,dep,test_size=0.2,random_state=0)
+indTrain,indTest,depTrain,depTest = train_test_split(ind,dep,test_size=0.25,random_state=0)   
 
 # Scaling the features
 from sklearn.preprocessing import StandardScaler
@@ -20,15 +20,15 @@ indTrain = scale.fit_transform(indTrain)
 indTest = scale.transform(indTest)
 
 # Train and fitting the logistic regression model
-from sklearn.svm import SVC
-classifier = SVC(kernel='linear', random_state=0)
+from sklearn.naive_bayes import GaussianNB
+classifier = GaussianNB()
 classifier.fit(indTrain,depTrain)
 
 # Predicting a single observation
-# person = classifier.predict(scale.transform([[30,87000]]))
-# print(person)
-# person = classifier.predict(indTest[0,0:2].reshape(1,-1))
-# print(person)
+person = classifier.predict(scale.transform([[30,87000]]))
+print(person)
+person = classifier.predict(indTest[0,0:2].reshape(1,-1))
+print(person)
 
 # Predicting The Entire test set
 purchase = classifier.predict(indTest)
