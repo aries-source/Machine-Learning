@@ -1,7 +1,9 @@
-#K-Means Clustering
+#Hierarchical Clustering
+#Agglomerative Method
 
 #Importing the Dataset
 Mall = read.csv('Mall_Customers.csv')
+
 #Data Preprocessing
 Mall = as.data.frame(Mall)
 Mall = Mall[,2:5]
@@ -10,27 +12,24 @@ Mall = Mall[,2:5]
 Mall$Gender = factor(Mall$Gender,
                         levels = c('Female','Male'),
                         labels = c(0,1))
+#Dendrogram
+Dendrogram = hclust(dist(Mall, method = 'euclidean'),
+                    method = 'ward.D')
+plot(Dendrogram,
+     main = paste('Dendrogram'),
+     xlab = 'Customers',
+     ylab = 'Euclidean Distances')
 
-#Finding the number of clusters to be used
-set.seed(6)
-WCSS = vector()
-for (i in 1:10) {
-  WCSS[i] = sum(kmeans(Mall,i)$withinss)
-}
+#Fitting the Hierarchical Clustering algorithms on the dataset
+hc = hclust(dist(Mall, method = 'euclidean'),
+                    method = 'ward.D')
 
-#Visualizing the WCSS
-plot(1:10,WCSS, type = 'b',
-     main = paste('Clusters of Clients'),
-     xlab = 'Number of Clusters',
-     ylab = 'WCSS')
+Clusters = cutree(hc,3)
 
-#Kmeans
-
-KMeans = kmeans(Mall,5,iter.max = 300,nstart = 10)
-
+#Visualizing the Clusters
 library(cluster)
 clusplot(Mall[,3:4],
-         KMeans$cluster,
+         Clusters,
          lines = 0,
          span = TRUE,
          plotchar = FALSE,
