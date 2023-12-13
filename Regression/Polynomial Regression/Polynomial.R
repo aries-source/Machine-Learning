@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 dataset = read.csv('Position_Salaries.csv')
 dataset = dataset[2:3]
 
@@ -43,3 +44,19 @@ linPred = predict(linReg, data.frame(Level=6.5))
 PolyPred = predict(polyReg,data.frame(Level = 6.5,
                                       Level2 = 6.5^2,
                                       Level3 =6.5^3))
+=======
+dataset = read.csv('Position_Salaries.csv')
+dataset = dataset[2:3]
+
+#Linear Model
+linReg = lm(formula = Salary ~ .,data = dataset)
+summary(linReg)
+
+# Polynomial Model
+dataset$Level2 = dataset$Level^2
+dataset$Level3 = dataset$Level^3
+polyReg = lm(formula = Salary ~ .,
+             data = dataset )
+summary(polyReg)
+
+>>>>>>> 18e1876480b15ecc8ba58530f63fb9d0263e8f26
