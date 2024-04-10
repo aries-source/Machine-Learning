@@ -1,0 +1,20 @@
+model_1 = tree.DecisionTreeClassifier()
+model_1.fit(x_train, y_train)
+holdout_pred_1=model_1.predict(x_val)
+test_pred_1=model_1.predict(x_test)
+holdout_pred_1=pd.DataFrame(holdout_pred_1)
+test_pred1=pd.DataFrame(test_pred1)
+
+model_2 = KNeighborsClassifier()
+model_2.fit(x_train,y_train)
+holdout_pred_2=model_2.predict(x_val)
+test_pred_2=model_2.predict(x_test)
+holdout_pred_2=pd.DataFrame(holdout_pred_2)
+test_pred_2=pd.DataFrame(test_pred_2)
+
+df_holdout=pd.concat([x_val, holdout_pred_1,holdout_pred_2],axis=1)
+df_test=pd.concat([x_test, test_pred_1,test_pred_2],axis=1)
+
+model = LogisticRegression()
+model.fit(df_holdout,y_holdout)
+model.score(df_test,y_test)
