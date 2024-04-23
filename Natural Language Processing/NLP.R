@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Natural Language Processing
 
 # Import Libraries
@@ -47,3 +48,11 @@ classPred = predict(classifier, newdata = testSet[-692])
 # Creating the confusion matrix
 matrix = table(testSet[,692],classPred)
 accuracy
+=======
+# Natural Language Processing
+
+#Import Dataset
+Dataset = read.delim('Restaurant_Reviews.tsv', 
+                     quote = '',
+                     stringsAsFactors = FALSE)
+>>>>>>> 21cec8927b342ab0897e1485d6013fda26630e11
